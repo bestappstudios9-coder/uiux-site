@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0D1B2A">
+  <meta name="description" content="UIUX helps enterprise teams turn complex digital challenges into clear, effective experiences.">
+  <title>UIUX — Design that moves business forward</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0D1B2A;
+      --blue: #007BFF;
+      --white: #FFFFFF;
+      --muted: #526174;
+      --line: #D9E2EC;
+      --soft: #F3F7FC;
+      --soft-blue: #E8F2FF;
+      --radius: 16px;
+      --radius-sm: 6px;
+      --page-width: 1180px;
+      --shadow: 0 1px 3px rgba(13,27,42,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: "Manrope", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--page-width), calc(100% - 48px)); margin-inline: auto; }
+    .announcement {
+      background: var(--ink); color: var(--white); font-size: 13px;
+      padding: 9px 0; text-align: center;
+    }
+    .announcement strong { color: #9CCBFF; font-weight: 800; }
+    .site-header {
+      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 23px; font-weight: 800; letter-spacing: -.06em; white-space: nowrap; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      color: white; background: var(--blue); font-size: 17px; letter-spacing: -.04em;
+    }
+    .nav-links { display: flex; align-items: center; gap: 27px; margin-left: auto; }
+    .nav-links a, .nav-contact { font-size: 14px; font-weight: 700; color: #34465A; transition: color .2s; }
+    .nav-links a:hover, .nav-contact:hover { color: var(--blue); }
+    .nav-actions { display: flex; align-items: center; gap: 18px; }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 9px;
+      min-height: 44px; padding: 10px 18px; border: 1px solid transparent; border-radius: var(--radius-sm);
+      background: var(--blue); color: white; font-weight: 800; font-size: 14px; cursor: pointer;
+      transition: transform .2s, background .2s, box-shadow .2s;
+    }
+    .btn:hover { background: #0068D9; transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0,123,255,.18); }
+    .btn-outline { background: white; color: var(--ink); border-color: var(--line); }
+    .btn-outline:hover { background: var(--soft); color: var(--ink); box-shadow: none; }
+    .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 8px; width: 44px; height: 44px; background: white; color: var(--ink); cursor: pointer; }
+    .hero { padding: 88px 0 70px; overflow: hidden; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--blue); text-transform: uppercase; letter-spacing: .12em; font-size: 11px; font-weight: 800; }
+    .eyebrow:before { content: ""; width: 22px; height: 2px; background: currentColor; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(42px, 5.2vw, 68px); line-height: 1.04; letter-spacing: -.065em; font-weight: 800; margin: 20px 0 24px; max-width: 720px; }
+    h1 span { color: var(--blue); }
+    .hero-copy { color: var(--muted); font-size: 18px; max-width: 570px; margin-bottom: 30px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .micro-proof { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; color: #526174; font-size: 12px; font-weight: 700; }
+    .micro-proof span:before { content: "✓"; color: var(--blue); margin-right: 7px; font-weight: 800; }
+    .hero-art {
+      position: relative; min-height: 420px; border: 1px solid var(--line); border-radius: 24px;
+      padding: 28px; background: radial-gradient(circle at 82% 12%, #D8E9FF 0, transparent 34%), linear-gradient(145deg,#F8FBFF,#EAF3FF);
+      overflow: hidden;
+    }
+    .art-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: #53657A; }
+    .live-dot { width: 7px; height: 7px; display: inline-block; border-radius: 50%; background: #23B26D; margin-right: 7px; }
+    .dashboard {
+      position: absolute; inset: 75px 28px 28px; border: 1px solid #D7E3F0; border-radius: 14px;
+      background: rgba(255,255,255,.95); box-shadow: 0 14px 35px rgba(13,27,42,.08); padding: 22px;
+    }
+    .dash-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 18px; border-bottom: 1px solid #E7EDF4; }
+    .dash-title { font-size: 13px; font-weight: 800; }
+    .dash-label { font-size: 10px; color: var(--muted); }
+    .dash-badge { color: #0068D9; background: #E8F2FF; padding: 5px 9px; border-radius: 5px; font-size: 10px; font-weight: 800; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 18px 0; }
+    .metric { padding: 12px; border: 1px solid #E4EBF3; border-radius: 9px; }
+    .metric small { display: block; color: var(--muted); font-size: 10px; }
+    .metric strong { display: block; font-size: 21px; letter-spacing: -.05em; margin-top: 3px; }
+    .metric em { color: #178A56; font-style: normal; font-size: 10px; font-weight: 800; }
+    .chart { height: 100px; display: flex; align-items: end; gap: 8px; padding: 10px 5px 0; border-bottom: 1px solid #E7EDF4; }
+    .chart i { flex: 1; min-width: 5px; background: #B7D8FF; border-radius: 4px 4px 0 0; }
+    .chart i:nth-child(3n+1) { background: var(--blue); }
+    .chart i:nth-child(2n) { opacity: .7; }
+    .chart-caption { display: flex; justify-content: space-between; color: #718094; font-size: 10px; padding-top: 8px; }
+    .float-note { position: absolute; bottom: 20px; right: 15px; background: var(--ink); color: white; border-radius: 10px; padding: 12px 15px; font-size: 11px; font-weight: 700; box-shadow: var(--shadow); }
+    .float-note strong { display: block; font-size: 18px; color: #9CCBFF; }
+    .proof-ribbon { border-block: 1px solid var(--line); background: white; }
+    .proof-items { display: grid; grid-template-columns: repeat(4,1fr); }
+    .proof-item { padding: 22px 18px; text-align: center; font-size: 12px; font-weight: 800; color: #46576A; border-right: 1px solid var(--line); }
+    .proof-item:first-child { border-left: 1px solid var(--line); }
+    .proof-item strong { color: var(--ink); }
+    section.content-section { padding: 88px 0; }
+    .section-head { max-width: 720px; margin-bottom: 42px; }
+    .section-head.center { margin-inline: auto; text-align: center; }
+    .section-head.center .eyebrow { justify-content: center; }
+    h2 { font-size: clamp(32px,4vw,46px); line-height: 1.15; letter-spacing: -.055em; font-weight: 800; margin: 15px 0 16px; }
+    .section-lead { font-size: 17px; color: var(--muted); margin-bottom: 0; }
+    .problem-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: start; }
+    .problem-list { list-style: none; margin: 0; padding: 0; }
+    .problem-list li { display: flex; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); color: #435367; }
+    .check { flex: 0 0 25px; height: 25px; display: grid; place-items: center; border-radius: 7px; color: var(--blue); background: var(--soft-blue); font-weight: 800; font-size: 13px; }
+    .soft-section { background: var(--soft); }
+    .service-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .service-card { padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: white; transition: border-color .2s, transform .2s; }
+    .service-card:hover { border-color: #8DBEFF; transform: translateY(-3px); }
+    .service-icon { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid #C9E0FF; border-radius: 12px; color: var(--blue); background: #F1F7FF; font-size: 20px; font-weight: 800; margin-bottom: 24px; }
+    h3 { font-size: 20px; line-height: 1.35; letter-spacing: -.035em; margin-bottom: 10px; }
+    .service-card p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-size: 13px; font-weight: 800; }
+    .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .process-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .process-step { padding: 30px; background: white; border-right: 1px solid var(--line); }
+    .process-step:last-child { border-right: 0; }
+    .step-no { font-family: monospace; color: var(--blue); font-size: 12px; font-weight: 800; margin-bottom: 26px; }
+    .process-step p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .compare-panel { padding: 32px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+    .compare-panel.highlight { background: var(--ink); color: white; border-color: var(--ink); }
+    .compare-panel .tag { display: inline-block; padding: 5px 9px; border-radius: 4px; background: var(--soft); color: #536174; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .compare-panel.highlight .tag { color: #CFE4FF; background: #203B57; }
+    .compare-panel p { color: var(--muted); font-size: 14px; }
+    .compare-panel.highlight p { color: #D0DCE8; }
+    .compare-panel ul { padding-left: 18px; margin-bottom: 0; font-size: 14px; }
+    .compare-panel li { margin: 9px 0; }
+    .integrations { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .integration-chip { display: inline-flex; align-items: center; gap: 10px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: white; font-weight: 800; font-size: 13px; }
+    .integration-chip span { width: 25px; height: 25px; display: grid; place-items: center; background: var(--soft-blue); color: var(--blue); border-radius: 7px; font-size: 11px; }
+    .cta-band { padding: 68px 28px; text-align: center; border-radius: 24px; background: var(--ink); color: white; }
+    .cta-band h2 { max-width: 700px; margin: 0 auto 16px; }
+    .cta-band p { color: #C4D0DE; max-width: 620px; margin: 0 auto 26px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-question { width: 100%; padding: 22px 0; border: 0; background: transparent; display: flex; align-items: center; justify-content: space-between; gap: 20px; text-align: left; color: var(--ink); cursor: pointer; font-size: 16px; font-weight: 800; }
+    .faq-question span:last-child { color: var(--blue); font-size: 22px; transition: transform .2s; }
+    .faq-answer { display: none; max-width: 800px; padding: 0 36px 22px 0; color: var(--muted); font-size: 14px; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-question span:last-child { transform: rotate(45deg); }
+    .site-footer { background: #F7F9FC; border-top: 1px solid var(--line); padding: 55px 0 22px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 38px; padding-bottom: 42px; }
+    .footer-about p { max-width: 300px; margin-top: 18px; color: var(--muted); font-size: 13px; }
+    .footer-col h4 { margin: 0 0 15px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .footer-col a { display: block; margin: 10px 0; font-size: 13px; color: #526174; }
+    .footer-col a:hover { color: var(--blue); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 18px; padding-top: 20px; border-top: 1px solid var(--line); color: #64748B; font-size: 11px; }
+    .cookie-banner {
+      position: fixed; z-index: 100; bottom: 16px; left: 16px; right: 16px; max-width: 880px; margin-inline: auto;
+      display: none; align-items: center; gap: 22px; justify-content: space-between; padding: 16px 18px;
+      background: white; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 30px rgba(13,27,42,.16);
+    }
+    .cookie-banner.show { display: flex; }
+    .cookie-banner p { margin: 0; font-size: 12px; color: var(--muted); }
+    .cookie-actions { display: flex; flex-shrink: 0; gap: 8px; }
+    .cookie-actions button { min-height: 36px; padding: 7px 12px; font-size: 12px; }
+    .form-message { font-size: 13px; margin-top: 12px; color: var(--blue); font-weight: 700; }
+    :focus-visible { outline: 3px solid #79B7FF; outline-offset: 3px; }
+    @media (max-width: 980px) {
+      .nav { gap: 16px; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 13px; }
+      .nav-contact { display: none; }
+      .hero-grid { gap: 30px; }
+      .hero-art { min-height: 390px; padding: 20px; }
+      .dashboard { inset: 70px 20px 20px; padding: 16px; }
+      .metric { padding: 8px; }
+      .problem-grid { gap: 35px; }
+      .footer-grid { gap: 24px; }
+    }
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, var(--page-width)); }
+      .announcement { font-size: 11px; }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: inline-grid; place-items: center; margin-left: auto; }
+      .nav-actions { display: none; }
+      .nav-links {
+        display: none; position: absolute; left: 0; right: 0; top: 68px; margin: 0; padding: 18px 24px 22px;
+        background: white; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid #EDF1F6; font-size: 14px; }
+      .hero { padding: 58px 0 45px; }
+      .hero-grid, .problem-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 38px; }
+      h1 { font-size: clamp(40px, 11vw, 58px); }
+      .hero-copy { font-size: 16px; }
+      .hero-art { min-height: 370px; }
+      .proof-items { grid-template-columns: 1fr 1fr; }
+      .proof-item { border-bottom: 1px solid var(--line); padding: 16px 8px; }
+      .proof-item:nth-child(odd) { border-left: 1px solid var(--line); }
+      section.content-section { padding: 62px 0; }
+      .section-head { margin-bottom: 30px; }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { padding: 25px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-step { border-right: 0; border-bottom: 1px solid var(--line); padding: 25px; }
+      .process-step:last-child { border-bottom: 0; }
+      .comparison { grid-template-columns: 1fr; }
+      .compare-panel { padding: 25px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-about { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; }
+      .cookie-banner { align-items: stretch; flex-direction: column; gap: 12px; bottom: 10px; left: 10px; right: 10px; }
+      .cookie-actions { justify-content: flex-end; }
+    }
+    @media (max-width: 400px) {
+      .hero-art { min-height: 350px; padding: 14px; }
+      .dashboard { inset: 62px 12px 12px; padding: 12px; }
+      .metric-grid { gap: 5px; }
+      .metric strong { font-size: 17px; }
+      .float-note { right: 7px; bottom: 8px; }
+      .hero-actions .btn { width: 100%; }
+      .footer-grid { gap: 20px 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">
+    <div class="container"><strong>Design clarity for ambitious teams.</strong> Explore how UIUX can help your next digital project.</div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <!-- Replace this text mark with your logo image when available. -->
+      <a class="brand" href="#home" aria-label="UIUX home"><span class="brand-mark">U</span><span>UIUX</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#approach">Our approach</a>
+        <a href="#work">Why UIUX</a>
+        <a href="#integrations">Capabilities</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-contact" href="#contact">Talk to our team</a>
+        <a class="btn" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Strategy · Design · Digital</span>
+          <h1>Turn complex ideas into <span>clear digital experiences.</span></h1>
+          <p class="hero-copy">UIUX helps businesses make digital products easier to understand, simpler to use, and more effective for the people who rely on them.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Discuss your project <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-outline" href="#services">Explore our services</a>
+          </div>
+          <div class="micro-proof"><span>Business-first thinking</span><span>User-centred design</span><span>Responsive by default</span></div>
+        </div>
+        <div class="hero-art" aria-label="Illustrative digital product analytics dashboard">
+          <div class="art-top"><span>UIUX / EXPERIENCE OVERVIEW</span><span><i class="live-dot"></i>DESIGN SYSTEM</span></div>
+          <div class="dashboard">
+            <div class="dash-head"><div><div class="dash-title">Experience performance</div><div class="dash-label">Illustrative product overview</div></div><span class="dash-badge">LIVE CONCEPT</span></div>
+            <div class="metric-grid">
+              <div class="metric"><small>Clarity score</small><strong>92<small style="display:inline">/100</small></strong><em>↑ Improved</em></div>
+              <div class="metric"><small>Task success</small><strong>86%</strong><em>↑ Improved</em></div>
+              <div class="metric"><small>Friction points</small><strong>08</strong><em>↓ Reduced</em></div>
+            </div>
+            <div class="dash-label">Illustrative progress over time</div>
+            <div class="chart" aria-hidden="true">
+              <i style="height:30%"></i><i style="height:42%"></i><i style="height:36%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:64%"></i><i style="height:58%"></i><i style="height:76%"></i><i style="height:68%"></i><i style="height:91%"></i><i style="height:80%"></i><i style="height:100%"></i>
+            </div>
+            <div class="chart-caption"><span>START</span><span>DESIGN ITERATIONS</span><span>OPTIMISED</span></div>
+          </div>
+          <div class="float-note"><strong>Human-first.</strong>Built around real needs.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="proof-ribbon" aria-label="UIUX principles">
+      <div class="container proof-items">
+        <div class="proof-item"><strong>01</strong> &nbsp; Understand the user</div>
+        <div class="proof-item"><strong>02</strong> &nbsp; Simplify the journey</div>
+        <div class="proof-item"><strong>03</strong> &nbsp; Design for outcomes</div>
+        <div class="proof-item"><strong>04</strong> &nbsp; Improve continuously</div>
+      </div>
+    </div>
+
+    <section class="content-section" id="work">
+      <div class="container problem-grid">
+        <div>
+          <span class="eyebrow">The opportunity</span>
+          <h2>Good technology deserves a better experience.</h2>
+          <p class="section-lead">When digital products feel complicated, people hesitate. Clear design helps teams communicate value, reduce friction, and make important tasks easier to complete.</p>
+        </div>
+        <ul class="problem-list">
+          <li><span class="check">✓</span><span><strong>Make complexity feel simple.</strong><br>Organise information so users can find what matters and act with confidence.</span></li>
+          <li><span class="check">✓</span><span><strong>Build consistency across touchpoints.</strong><br>Create coherent experiences across websites, apps, and internal tools.</span></li>
+          <li><span class="check">✓</span><span><strong>Connect design to business goals.</strong><br>Balance customer needs, operational realities, and measurable objectives.</span></li>
+          <li><span class="check">✓</span><span><strong>Give teams a foundation to grow.</strong><br>Use reusable patterns and clear systems to support future improvements.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">What we do</span>
+          <h2>Digital design that works as hard as your business.</h2>
+          <p class="section-lead">From the first concept to the details of everyday use, UIUX brings structure and purpose to digital experiences.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">◎</div>
+            <h3>UI/UX strategy & design</h3>
+            <p>Map user journeys, clarify information architecture, and create interfaces that help people complete tasks intuitively.</p>
+            <a class="text-link" href="#contact">Discuss UX design <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">▤</div>
+            <h3>Websites & landing pages</h3>
+            <p>Build a strong digital presence with purposeful page structure, accessible layouts, and clear calls to action.</p>
+            <a class="text-link" href="#contact">Discuss web design <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">◈</div>
+            <h3>Product & dashboard design</h3>
+            <p>Turn complex workflows, data, and enterprise requirements into usable application experiences.</p>
+            <a class="text-link" href="#contact">Discuss product design <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">▦</div>
+            <h3>Design systems</h3>
+            <p>Establish reusable components, interface rules, and visual consistency to help teams scale product design.</p>
+            <a class="text-link" href="#contact">Build a design system <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">↗</div>
+            <h3>Brand & visual communication</h3>
+            <p>Bring clarity to brand touchpoints through considered visual language, layouts, and digital assets.</p>
+            <a class="text-link" href="#contact">Discuss brand design <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">⌘</div>
+            <h3>Prototyping & validation</h3>
+            <p>Explore ideas early, communicate interactions, and gather feedback before committing to development.</p>
+            <a class="text-link" href="#contact">Plan a prototype <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="approach">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">A clear process</span>
+          <h2>From challenge to confident launch.</h2>
+          <p class="section-lead">A practical, collaborative approach that keeps decisions connected to user needs and project goals.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step"><div class="step-no">STEP / 01</div><h3>Discover</h3><p>Understand your audience, business objectives, existing workflows, and the problem the experience needs to solve.</p></article>
+          <article class="process-step"><div class="step-no">STEP / 02</div><h3>Define & design</h3><p>Shape the structure, user flows, visual language, and interactive prototypes around the agreed priorities.</p></article>
+          <article class="process-step"><div class="step-no">STEP / 03</div><h3>Deliver & improve</h3><p>Prepare clear handoff assets, support implementation, and identify opportunities for ongoing refinement.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">The difference</span>
+          <h2>Thoughtful design. Less unnecessary friction.</h2>
+          <p class="section-lead">A useful digital experience is not just attractive. It helps people understand what to do next.</p>
+        </div>
+        <div class="comparison" role="group" aria-label="Design approach comparison">
+          <article class="compare-panel">
+            <span class="tag">Without a clear system</span>
+            <h3 style="margin-top:20px">Disconnected experiences</h3>
+            <p>Teams can end up solving the same problems repeatedly and delivering interfaces that feel inconsistent.</p>
+            <ul><li>Unclear navigation and competing priorities</li><li>Repeated UI patterns with different behaviours</li><li>Late discovery of usability issues</li></ul>
+          </article>
+          <article class="compare-panel highlight">
+            <span class="tag">The UIUX approach</span>
+            <h3 style="margin-top:20px">One coherent experience</h3>
+            <p>Clear principles and reusable patterns help align user needs, business goals, and implementation.</p>
+            <ul><li>Purposeful journeys and information hierarchy</li><li>Consistent, reusable interface components</li><li>Earlier feedback and clearer handoff</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="integrations">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Flexible capabilities</span>
+          <h2>Designed to fit your team's workflow.</h2>
+          <p class="section-lead">Adaptable design deliverables can support the tools and platforms your team already uses. Final integrations depend on project requirements.</p>
+        </div>
+        <div class="integrations">
+          <div class="integration-chip"><span>F</span> Figma-ready workflows</div>
+          <div class="integration-chip"><span>W</span> WordPress & Elementor</div>
+          <div class="integration-chip"><span>R</span> Responsive web UI</div>
+          <div class="integration-chip"><span>A</span> App interface design</div>
+          <div class="integration-chip"><span>D</span> Design documentation</div>
+          <div class="integration-chip"><span>H</span> Developer handoff</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Questions & answers</span>
+          <h2>What would you like to know?</h2>
+          <p class="section-lead">A few starting points. We can define the right scope once we understand your project.</p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false"><span>What types of projects can UIUX support?</span><span aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>UIUX can support website and landing-page design, UI/UX strategy, product interfaces, dashboards, design systems, visual communication, and prototyping. The exact scope should be agreed around your needs.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false"><span>Can you work with our existing brand and product?</span><span aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>Yes. An engagement can build on your existing brand, product requirements, content, and technology constraints rather than starting from scratch.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false"><span>Can this page be used in WordPress and Elementor?</span><span aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>Yes. The page can be adapted for WordPress. For Elementor, you can place the page markup in an HTML widget and add the CSS and JavaScript using your site's supported custom-code method. Some themes may require adjustments to global styles and header spacing.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false"><span>How do we get started?</span><span aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>Share your project goals, intended audience, timeline, and any existing assets. We can then outline a suitable scope and next steps.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="contact">
+      <div class="container">
+        <div class="cta-band">
+          <span class="eyebrow" style="color:#9CCBFF">Your next step</span>
+          <h2>Have a digital challenge worth solving?</h2>
+          <p>Tell us what you're building, what isn't working, or what you'd like to improve. Let's define a clearer way forward.</p>
+          <!-- Replace the email address with your preferred business contact. -->
+          <a class="btn" href="mailto:hello@uidesigner.in?subject=UIUX%20Project%20Enquiry">Start a conversation <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="#home"><span class="brand-mark">U</span><span>UIUX</span></a>
+          <p>Clear thinking. Considered design. Digital experiences built around people and business goals.</p>
+        </div>
+        <div class="footer-col"><h4>Explore</h4><a href="#services">Services</a><a href="#approach">Our approach</a><a href="#work">Why UIUX</a></div>
+        <div class="footer-col"><h4>Capabilities</h4><a href="#integrations">Web design</a><a href="#integrations">Product UI/UX</a><a href="#integrations">Design systems</a></div>
+        <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@uidesigner.in">Email UIUX</a><a href="#contact">Discuss a project</a><a href="#faq">FAQs</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="currentYear"></span> UIUX. All rights reserved.</span><span>Designed for clarity and usability.</span></div>
+    </div>
+  </footer>
+
+  <aside class="cookie-banner" id="cookieBanner" aria-label="Cookie notice">
+    <p><strong>Your privacy matters.</strong> This demo page uses only essential browser functionality. If you add analytics or advertising, update this notice and your site's consent setup accordingly.</p>
+    <div class="cookie-actions"><button class="btn btn-outline" id="cookieDismiss">Dismiss</button><button class="btn" id="cookieAccept">Got it</button></div>
+  </aside>
+
+  <script>
+    (() => {
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        menuToggle.textContent = isOpen ? '✕' : '☰';
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Open navigation menu');
+          menuToggle.textContent = '☰';
+        });
+      });
+
+      document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+          const item = button.closest('.faq-item');
+          const willOpen = !item.classList.contains('open');
+          item.classList.toggle('open', willOpen);
+          button.setAttribute('aria-expanded', String(willOpen));
+        });
+      });
+
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      // Demo-only cookie notice dismissal; no consent preference is stored.
+      const cookieBanner = document.getElementById('cookieBanner');
+      const dismissCookie = () => cookieBanner.classList.remove('show');
+      document.getElementById('cookieDismiss').addEventListener('click', dismissCookie);
+      document.getElementById('cookieAccept').addEventListener('click', dismissCookie);
+      window.setTimeout(() => cookieBanner.classList.add('show'), 1400);
+    })();
+  </script>
+</body>
+</html>
