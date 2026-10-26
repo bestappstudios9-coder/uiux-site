@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Website</title>
+    <meta name="description" content="Welcome to my website.">
+
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #0D1B2A;
+            background-color: #FFFFFF;
+        }
+
+        header, footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #0D1B2A;
+            color: #FFFFFF;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007BFF;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>My Website</h2>
+    </header>
+
+    <main>
+        <section>
+            <h1>Welcome to My Website</h1>
+            <p>Build something amazing with HTML5, CSS3, and JavaScript.</p>
+            <button id="welcomeButton" type="button">
+                Get Started
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 My Website. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById("welcomeButton").addEventListener("click", function () {
+            alert("Welcome to my website!");
+        });
+    </script>
+
+</body>
+</html>
